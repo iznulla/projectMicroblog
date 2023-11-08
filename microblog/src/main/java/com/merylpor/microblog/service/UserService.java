@@ -1,7 +1,7 @@
 package com.merylpor.microblog.service;
 
-import com.merylpor.microblog.entity.Posts;
-import com.merylpor.microblog.entity.User;
+import com.merylpor.microblog.entity.PostsEntity;
+import com.merylpor.microblog.entity.UserEntity;
 import com.merylpor.microblog.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,30 +17,29 @@ import java.util.Optional;
 
 
 @Data
-@Builder
 @Service
 public class UserService {
     private final UserRepository userRepository;
 
 
-    public void saveUser(User user) {
+    public void saveUser(UserEntity user) {
         userRepository.save(user);
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<UserEntity> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
 
-    public List<User> allUsers() {
+    public List<UserEntity> allUsers() {
         return userRepository.findAll();
     }
 
-    public User getUserByName(String name) {
-        return userRepository.findByName(name);
+    public Optional<UserEntity> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
-    public void deleteUser(User user) {
+    public void deleteUser(UserEntity user) {
         userRepository.delete(user);
     }
 }

@@ -1,7 +1,6 @@
 package com.merylpor.microblog.entityTest;
 
 import com.merylpor.microblog.MicroblogApplication;
-import com.merylpor.microblog.entity.User;
 import com.merylpor.microblog.repository.UserRepository;
 import com.merylpor.microblog.service.UserService;
 import org.junit.jupiter.api.Test;
