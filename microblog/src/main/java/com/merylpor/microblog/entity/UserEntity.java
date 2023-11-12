@@ -25,6 +25,10 @@ public class UserEntity {
     @Column(name = "create_date")
     private Instant createDate;
 
+    @Builder.Default
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<PostsEntity> posts = new ArrayList<>();
+
     public Long getId() {
         return id;
     }
@@ -58,9 +62,7 @@ public class UserEntity {
     }
 // lequid base
 
-    @Builder.Default
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-    private List<PostsEntity> posts = new ArrayList<>();
+
 
     @Override
     public String toString() {

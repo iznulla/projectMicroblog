@@ -3,15 +3,9 @@ package com.merylpor.microblog.service;
 import com.merylpor.microblog.entity.PostsEntity;
 import com.merylpor.microblog.entity.UserEntity;
 import com.merylpor.microblog.repository.UserRepository;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,7 +33,9 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void deleteUser(UserEntity user) {
+    public void deleteUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElse(null);
+        assert user != null;
         userRepository.delete(user);
     }
 }
