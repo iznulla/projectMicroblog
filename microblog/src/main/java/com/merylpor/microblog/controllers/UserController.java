@@ -17,12 +17,9 @@ public class UserController {
 
 
     @PostMapping
-    public void addUser(@RequestBody UserEditDto userEntity) {
-        userService.saveUser(UserEntity.builder()
-                        .username(userEntity.getUsername())
-                        .name(userEntity.getName())
-                        .createDate(Instant.now())
-                .build());
+    public UserEditDto addUser(@RequestBody UserEditDto userEditDto) {
+        userService.saveUser(UserEditDto.toEntity(userEditDto));
+        return userEditDto;
     }
 
     @GetMapping
@@ -41,12 +38,9 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public void userEdit(@PathVariable Long id, @RequestBody UserEditDto editInfo) {
-        UserEntity user = userService.getUserById(id).orElse(null);
-        assert user != null;
-        user.setUsername(editInfo.getUsername());
-        user.setName(editInfo.getName());
-        userService.saveUser(user);
+    public UserEditDto userEdit(@PathVariable Long id, @RequestBody UserEditDto userEditDto) {
+        userService.updateUser(id, userEditDto);
+        return userEditDto;
     }
 
     @DeleteMapping("/{id}")

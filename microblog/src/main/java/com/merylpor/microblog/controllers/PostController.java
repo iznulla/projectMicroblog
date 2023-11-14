@@ -2,8 +2,7 @@ package com.merylpor.microblog.controllers;
 
 
 import com.merylpor.microblog.dto.PostCreateUpdateDto;
-import com.merylpor.microblog.dto.PostsAllDto;
-import com.merylpor.microblog.dto.ViewPostDto;
+import com.merylpor.microblog.dto.PostsDto;
 import com.merylpor.microblog.entity.PostsEntity;
 import com.merylpor.microblog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,33 +21,20 @@ public class PostController {
     }
 
     @GetMapping
-    public List<PostsAllDto> allPosts() {
-
+    public List<?> allPosts() {
         return postService.findAllPosts();
     }
 
     @GetMapping("/{id}")
-    public ViewPostDto viewPostDto(@PathVariable Long id) {
+    public PostsDto viewPostDto(@PathVariable Long id) {
         PostsEntity post = postService.findPostById(id);
-        return ViewPostDto.builder()
-                .id(post.getId())
-                .author(post.getUser().getUsername())
-                .post(post.getBody())
-                .createAt(post.getTimestamp())
-                .build();
+        return PostsDto.fromEntity(post);
     }
 
     @PatchMapping("/{id}")
-    public ViewPostDto updatePost(@PathVariable Long id, @RequestBody PostCreateUpdateDto updateRequest) {
-        PostsEntity post = postService.findPostById(id);
-        post.setBody(updateRequest.getBodyText());
-        postService.postUpdate(post);
-        return ViewPostDto.builder()
-                .id(post.getId())
-                .author(post.getUser().getUsername())
-                .post(post.getBody())
-                .createAt(post.getTimestamp())
-                .build();
+    public PostsDto updatePost(@PathVariable Long id, @RequestBody PostsDto postsDto) {
+        postService.postUpdate(id, postsDto);
+        return postsDto;
     }
 
     @DeleteMapping("/{id}")

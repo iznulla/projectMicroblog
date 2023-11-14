@@ -1,7 +1,6 @@
 package com.merylpor.microblog.service;
 
-
-import com.merylpor.microblog.dto.PostsAllDto;
+import com.merylpor.microblog.dto.PostsDto;
 import com.merylpor.microblog.entity.PostsEntity;
 import com.merylpor.microblog.repository.PostsRepository;
 import lombok.Builder;
@@ -28,9 +27,13 @@ public class PostService {
         postRepository.save(postsEntity);
     }
 
-    public void postUpdate(PostsEntity posts) {
-        if (posts.getUser().getId().equals(loggingManagerService.getUser().getId()))
-            postRepository.save(posts);
+    public void postUpdate(Long id, PostsDto postsDto) {
+        if (postsDto.getUserId().equals(loggingManagerService.getUser().getId())) {
+            PostsEntity post = postRepository.findById(id).orElse(null);
+            assert post != null;
+            post.setBody(postsDto.getBody());
+            postRepository.save(post);
+        }
     }
 
     public PostsEntity findPostById(Long id) {
@@ -43,9 +46,9 @@ public class PostService {
             postRepository.delete(posts);
     }
 
-    public List<PostsAllDto> findAllPosts() {
+    public List<PostsDto> findAllPosts() {
         return postRepository.findAll().stream()
-                .map(PostsAllDto::fromEntity)
+                .map(PostsDto::fromEntity)
                 .collect(Collectors.toList());
     }
 }

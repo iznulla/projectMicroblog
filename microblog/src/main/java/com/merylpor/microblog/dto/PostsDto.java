@@ -14,14 +14,14 @@ import java.time.Instant;
 @Builder
 @Data
 @Component
-public class PostsAllDto {
+public class PostsDto {
     private Long id;
     private String body;
     private Long userId;
     private Instant createAt;
 
-    public static PostsAllDto fromEntity(PostsEntity entity) {
-        return PostsAllDto.builder()
+    public static PostsDto fromEntity(PostsEntity entity) {
+        return PostsDto.builder()
                 .id(entity.getId())
                 .body(entity.getBody())
                 .userId(entity.getUser().getId())

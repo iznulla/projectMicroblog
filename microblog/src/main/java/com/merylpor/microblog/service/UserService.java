@@ -1,8 +1,10 @@
 package com.merylpor.microblog.service;
 
+import com.merylpor.microblog.dto.UserEditDto;
 import com.merylpor.microblog.entity.PostsEntity;
 import com.merylpor.microblog.entity.UserEntity;
 import com.merylpor.microblog.repository.UserRepository;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,21 @@ import java.util.Optional;
 
 @Data
 @Service
+@Builder
 public class UserService {
     private final UserRepository userRepository;
 
 
     public void saveUser(UserEntity user) {
+        userRepository.save(user);
+    }
+
+    public void updateUser(Long id, UserEditDto userEditDto) {
+        UserEntity user = userRepository.findById(id).orElse(null);
+        assert user != null;
+        user.setUsername(userEditDto.getUsername());
+        user.setName(userEditDto.getName());
+        user.setRole(userEditDto.getRole());
         userRepository.save(user);
     }
 
