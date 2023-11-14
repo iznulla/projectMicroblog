@@ -22,6 +22,9 @@ public class UserEntity {
     private String username;
     private String name;
 
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+
     @Column(name = "create_date")
     private Instant createDate;
 
@@ -60,7 +63,6 @@ public class UserEntity {
     public void setCreateDate(Instant createDate) {
         this.createDate = createDate;
     }
-// lequid base
 
 
 

@@ -16,8 +16,7 @@ public class LoginController {
 
     @PostMapping
     public void login(@RequestBody LoginUserDto username) {
-        System.out.println(loginProcessor.login(username.getUsername()));
-
+        loginProcessor.login(username.getUsername());
     }
 
     @GetMapping("/logout")

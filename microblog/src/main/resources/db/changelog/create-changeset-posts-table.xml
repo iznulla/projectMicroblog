@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="2-create-changeset-posts-table" author="codela">
+        <createTable tableName="posts">
+            <column autoIncrement="true" name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="body" type="varchar(128)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="timestamp" type="date"/>
+            <column name="user_id" type="bigint">
+                <constraints references="users" foreignKeyName="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
