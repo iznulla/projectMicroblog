@@ -27,10 +27,6 @@ public class UserController {
         return userService.allUsers();
     }
 
-//    @GetMapping("/{name}")
-//    public UserEntity getUserByName(@PathVariable String name) {
-//        return userService.getUserByUsername(name).orElse(null);
-//    }
 
     @GetMapping("/{id}")
     public UserEntity getUserById(@PathVariable Long id) {

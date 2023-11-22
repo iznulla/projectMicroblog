@@ -20,6 +20,7 @@ public class UserEditDto {
     private String name;
     private Role role;
     private Instant createAt;
+    private String password;
 
     public static UserEditDto fromEntity(UserEntity entity) {
        return UserEditDto.builder()
@@ -34,6 +35,7 @@ public class UserEditDto {
                 .name(userEditDto.getName())
                 .role(Role.USER)
                 .createDate(Instant.now())
+                .password(userEditDto.getPassword())
                 .build();
     }
 }

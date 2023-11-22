@@ -7,4 +7,9 @@
     <include file="create-changeset-users-table.xml" relativeToChangelogFile="true"/>
     <include file="create-changeset-posts-table.xml" relativeToChangelogFile="true"/>
     <include file="create-changset-role-user.xml" relativeToChangelogFile="true"/>
+    <include file="create-changset-user-password.xml" relativeToChangelogFile="true"/>
+    <include file="create-changset-password-default.xml" relativeToChangelogFile="true"/>
+    <include file="create-changeset-password-edit-default.xml" relativeToChangelogFile="true"/>
+    <include file="create-changeset-drop-password.xml" relativeToChangelogFile="true"/>
+    <include file="create-changeset-add-column-password.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

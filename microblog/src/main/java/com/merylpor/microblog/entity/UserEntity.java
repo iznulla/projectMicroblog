@@ -21,6 +21,17 @@ public class UserEntity {
 
     private String username;
     private String name;
+    @Enumerated(value = EnumType.STRING)
+    private Role role;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Role getRole() {
         return role;
@@ -29,9 +40,6 @@ public class UserEntity {
     public void setRole(Role role) {
         this.role = role;
     }
-
-    @Enumerated(value = EnumType.STRING)
-    private Role role;
 
     @Column(name = "create_date")
     private Instant createDate;
