@@ -19,12 +19,12 @@ public class JwtIssuer {
 
     private final JwtProperties properties;
 
-    public String issue(Long userId, String username, Role role){
+    public String issue(Long userId, String username, List<String> role){
         return JWT.create()
                 .withSubject(String.valueOf(userId))
                 .withExpiresAt(Instant.now().plus(Duration.of(1, ChronoUnit.DAYS)))
                 .withClaim("u", username)
-                .withClaim("a", role.getAuthority())
+                .withClaim("a", role)
                 .sign(Algorithm.HMAC256(properties.getSecretKey()));
     }
 }

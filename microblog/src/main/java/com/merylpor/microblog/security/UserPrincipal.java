@@ -15,7 +15,7 @@ public class UserPrincipal implements UserDetails {
 
     private final Long userId;
     private final String username;
-//    private final String password;
+    private final String password;
     private final Collection<? extends GrantedAuthority> authorities;
 
     @Override
@@ -25,7 +25,7 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override

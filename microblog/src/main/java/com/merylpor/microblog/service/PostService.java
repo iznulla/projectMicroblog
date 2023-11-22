@@ -19,32 +19,30 @@ public class PostService {
     private final LoggingManagerService loggingManagerService;
 
 
-    public void postCreate(String posts) {
-        PostsEntity postsEntity = PostsEntity.builder()
-                .user(loggingManagerService.getUser())
-                .body(posts)
-                .timestamp(Instant.now()).build();
-        postRepository.save(postsEntity);
-    }
+//    public void postCreate(String posts) {
+//        PostsEntity postsEntity = PostsEntity.builder()
+//                .user(loggingManagerService.getUser())
+//                .body(posts)
+//                .timestamp(Instant.now()).build();
+//        postRepository.save(postsEntity);
+//    }
 
     public void postUpdate(Long id, PostsDto postsDto) {
-        if (postsDto.getUserId().equals(loggingManagerService.getUser().getId())) {
             PostsEntity post = postRepository.findById(id).orElse(null);
             assert post != null;
             post.setBody(postsDto.getBody());
             postRepository.save(post);
-        }
     }
 
     public PostsEntity findPostById(Long id) {
         return postRepository.findById(id).orElse(null);
     }
 
-    public void deletePost(Long id) {
-        PostsEntity posts = findPostById(id);
-        if (posts.getUser().getId().equals(loggingManagerService.getUser().getId()))
-            postRepository.delete(posts);
-    }
+//    public void deletePost(Long id) {
+//        PostsEntity posts = findPostById(id);
+//        if (posts.getUser().getId().equals(loggingManagerService.getUser().getId()))
+//            postRepository.delete(posts);
+//    }
 
     public List<PostsDto> findAllPosts() {
         return postRepository.findAll().stream()

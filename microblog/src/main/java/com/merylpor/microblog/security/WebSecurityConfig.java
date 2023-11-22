@@ -1,8 +1,11 @@
 package com.merylpor.microblog.security;
 
+import com.merylpor.microblog.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,19 +18,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final JwtAuthFilter authFilter;
+    private final CustomUserDetailService customUserDetailService;
     @Bean
     public SecurityFilterChain applicationSecurity(HttpSecurity http) throws Exception {
+        http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);
         http
-                .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors().disable()
                 .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .formLogin().disable()
                 .antMatcher("/**")
-                .authorizeHttpRequests((registry) ->
+                .authorizeRequests(registry ->
                         registry
                                 .antMatchers("/auth/login").permitAll()
+                                .antMatchers("/users/**").hasRole("ADMIN")
                                 .anyRequest().authenticated());
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(customUserDetailService)
+                .and().build();
     }
 }

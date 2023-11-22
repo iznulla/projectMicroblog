@@ -15,10 +15,10 @@ import java.util.List;
 public class PostController {
     @Autowired private PostService postService;
 
-    @PostMapping
-    public void createPost(@RequestBody PostCreateUpdateDto textBody) {
-        postService.postCreate(textBody.getBodyText());
-    }
+//    @PostMapping
+//    public void createPost(@RequestBody PostCreateUpdateDto textBody) {
+//        postService.postCreate(textBody.getBodyText());
+//    }
 
     @GetMapping
     public List<?> allPosts() {
@@ -37,8 +37,8 @@ public class PostController {
         return postsDto;
     }
 
-    @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
-    }
+//    @DeleteMapping("/{id}")
+//    public void deletePost(@PathVariable Long id) {
+//        postService.deletePost(id);
+//    }
 }

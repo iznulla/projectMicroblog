@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +23,7 @@ public class UserService {
     }
 
     public void updateUser(Long id, UserEditDto userEditDto) {
-        UserEntity user = userRepository.findById(id).orElse(null);
-        assert user != null;
+        UserEntity user = userRepository.findById(id).orElseThrow();
         user.setUsername(userEditDto.getUsername());
         user.setName(userEditDto.getName());
         user.setRole(userEditDto.getRole());
@@ -51,14 +49,4 @@ public class UserService {
         assert user != null;
         userRepository.delete(user);
     }
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        return userRepository.findByUsername(username)
-//                .map(user -> new org.springframework.security.core.userdetails.User(
-//                        user.getUsername(),
-//                        user.getPassword(),
-//                        Collections.singleton(user.getRole())
-//                )).orElseThrow(() -> new UsernameNotFoundException("Failed to retrieve user: " + username));
-//    }
 }
